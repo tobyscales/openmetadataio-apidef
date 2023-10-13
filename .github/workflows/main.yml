@@ -10,6 +10,7 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 18
+    - run: npm ci
     - run: git update-index --chmod=-x  bin/compile_docs.sh
     - run: bash publish.sh
       env:
