@@ -5,6 +5,8 @@ jobs:
   publish-api-spec:
     runs-on: ubuntu-latest
     steps:
+    # This step checks out a copy of your repository.
+    - uses: actions/checkout@v4
     - uses: Bwen/action-ghp-sync@v1-beta
       with:
         source_dir: .
