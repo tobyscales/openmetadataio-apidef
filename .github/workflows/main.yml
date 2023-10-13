@@ -7,6 +7,7 @@ jobs:
     steps:
     # This step checks out a copy of your repository.
     - uses: actions/checkout@v4
-    - run: bin/compile_docs.sh    
+    - run: git update-index --chmod=-x  bin/compile_docs.sh
+    - run: bash bin/compile_docs.sh    
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
