@@ -8,6 +8,9 @@ jobs:
     # This step checks out a copy of your repository.
     - uses: actions/checkout@v4
     - run: git update-index --chmod=-x  bin/compile_docs.sh
-    - run: bash bin/compile_docs.sh    
+    - uses: Bwen/action-ghp-sync@v1-beta
+      with:
+        source_dir: openmetadataio-apidef
+        build_script: bin/compile_docs.sh
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
