@@ -10,6 +10,6 @@ jobs:
     - uses: Bwen/action-ghp-sync@v1-beta
       with:
         source_dir: .
-        build_script: bin/compile_docs.sh
+        build_script: publish.sh
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
