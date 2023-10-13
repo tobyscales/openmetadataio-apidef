@@ -7,9 +7,6 @@ jobs:
     steps:
     # This step checks out a copy of your repository.
     - uses: actions/checkout@v4
-    - uses: Bwen/action-ghp-sync@v1-beta
-      with:
-        source_dir: tobyscales/openmetadataio-apidef
-        build_script: /home/runner/work/openmetadataio-apidef/openmetadataio-apidef/publish
+    - run: bin/compile_docs.sh    
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
