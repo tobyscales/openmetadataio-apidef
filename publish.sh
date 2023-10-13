@@ -4,8 +4,8 @@ set -exo pipefail
 
 ### Import Environment Variables & arguments
 ENV_GITHUB_RUN_ID="${GITHUB_RUN_ID}"
-ARG_DIR_SOURCE=${1}
-ARG_SCRIPT_BUILD=${2}
+ARG_DIR_SOURCE=.
+ARG_SCRIPT_BUILD=bin/compile_docs.sh
 set -u
 
 DIR_WORKSPACE="$(pwd)"
