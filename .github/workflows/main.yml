@@ -1,0 +1,13 @@
+name: learn-github-actions
+run-name: ${{ github.actor }} is learning GitHub Actions
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: Bwen/action-ghp-sync@v1-beta
+      with:
+        source_dir: tobyscales/openmetadataio-apidef
+        build_script: bin/compile_docs
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
