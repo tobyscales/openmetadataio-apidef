@@ -7,6 +7,9 @@ jobs:
     steps:
     # This step checks out a copy of your repository.
     - uses: actions/checkout@v4
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
     - run: git update-index --chmod=-x  bin/compile_docs.sh
     - run: bash publish.sh
       env:
