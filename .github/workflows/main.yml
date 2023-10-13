@@ -9,7 +9,7 @@ jobs:
     - uses: actions/checkout@v4
     - uses: Bwen/action-ghp-sync@v1-beta
       with:
-        source_dir: .
+        source_dir: tobyscales/openmetadataio-apidef
         build_script: publish.sh
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
