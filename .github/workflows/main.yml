@@ -20,7 +20,7 @@ jobs:
           # Container name
           name: blueprinter
           # Command to run
-          args: -i api.apib -o index.html
+          args: -i api.apib -o /tmp/gh-pages/index.html
           # Options to pass to docker run
           options: -v $(pwd):/app 
     #- name: Use Node.js
