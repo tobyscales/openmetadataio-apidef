@@ -32,7 +32,7 @@ if [[ ${PIPESTATUS[0]} -eq 0 ]]; then
 fi
 
 echo "ls -l"
-ls index.html
+ls /tmp/gh-pages/index.html
 ls -l
 
 ### echo "node bin/index.js ${CURRENT_BRANCH}"
