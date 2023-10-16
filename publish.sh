@@ -38,16 +38,16 @@ ls -l
 ### echo "node bin/index.js ${CURRENT_BRANCH}"
 ### node bin/index.js "${CURRENT_BRANCH}"
 
-if [ -n "${ARG_SCRIPT_BUILD}" ]; then
-  ! "${ARG_SCRIPT_BUILD}"
-  if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
-    echo "The build script '${ARG_SCRIPT_BUILD}' exited with a non 0!"
-    exit 2
-  fi
+#if [ -n "${ARG_SCRIPT_BUILD}" ]; then
+#  ! "${ARG_SCRIPT_BUILD}"
+#  if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
+#    echo "The build script '${ARG_SCRIPT_BUILD}' exited with a non 0!"
+#    exit 2
+#  fi
 
   ### After build script ensure that we are in the workspace directory
-  cd "${DIR_WORKSPACE}"
-fi
+ # cd "${DIR_WORKSPACE}"
+#fi
 
 if [ ! -d "${ARG_DIR_SOURCE}" ] || [ ! -r "${ARG_DIR_SOURCE}" ]; then
   echo "Source directory must exist and be readable, path must be relative to the root of the project."
