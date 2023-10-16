@@ -4,7 +4,7 @@ set -exo pipefail
 
 ### Import Environment Variables & arguments
 ENV_GITHUB_RUN_ID="${GITHUB_RUN_ID}"
-ARG_DIR_SOURCE=.
+ARG_DIR_SOURCE=gh-pages
 ARG_SCRIPT_BUILD=bin/compile_docs.sh
 set -u
 
