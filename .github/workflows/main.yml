@@ -20,7 +20,7 @@ jobs:
           # Container name
           name: blueprinter
           # Command to run
-          args: -i doc.apib -o index.html
+          args: -i api.apib -o index.html
           # Options to pass to docker run
           options: -v $(pwd):/app 
     #- name: Use Node.js
@@ -28,7 +28,6 @@ jobs:
     #  with:
     #    node-version: '20.x'
         
-    #- name: Install dependencies
-    #  run: npm install
-    #  #run: git update-index --chmod=-x  bin/compile_docs.sh
-    #- run: bash publish.sh
+    - name: Install dependencies
+      #run: git update-index --chmod=-x  bin/compile_docs.sh
+      run: bash publish.sh
