@@ -31,13 +31,6 @@ if [[ ${PIPESTATUS[0]} -eq 0 ]]; then
   echo "Orphan branch 'gh-pages' created."
 fi
 
-echo "ls -l"
-#ls "${DIR_TMP_GHP}"/index.html
-ls -l
-
-### echo "node bin/index.js ${CURRENT_BRANCH}"
-### node bin/index.js "${CURRENT_BRANCH}"
-
 #if [ -n "${ARG_SCRIPT_BUILD}" ]; then
 #  ! "${ARG_SCRIPT_BUILD}"
 #  if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
