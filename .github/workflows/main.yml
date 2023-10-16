@@ -5,8 +5,8 @@ jobs:
   publish-api-spec:
     runs-on: ubuntu-latest
     permissions:
-     contents: read,write
-     pull-requests: read,write
+     contents: write
+     pull-requests: write
      
     steps:
     # This step checks out a copy of your repository.
