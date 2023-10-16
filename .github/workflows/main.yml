@@ -5,15 +5,15 @@ jobs:
   publish-api-spec:
     runs-on: ubuntu-latest
     permissions:
-     contents: read
-     pull-requests: write
+     contents: read,write
+     pull-requests: read,write
      
     steps:
     # This step checks out a copy of your repository.
     - name: Get repo
       uses: actions/checkout@v4
       env:
-          GITHUB_TOKEN: ${{ secrets.REPOACCESS }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DIR_GHP: "gh-pages"       
     - name: Docker Run
   # You may pin to the exact commit or the version.
@@ -36,5 +36,3 @@ jobs:
     - name: Run publish.sh to generate index.html
       #run: git update-index --chmod=-x  bin/compile_docs.sh
       run: bash publish.sh 
-      env:
-          GITHUB_TOKEN: ${{ secrets.repoaccess }}
