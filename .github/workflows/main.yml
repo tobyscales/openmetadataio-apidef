@@ -13,7 +13,7 @@ jobs:
     - name: Get repo
       uses: actions/checkout@v4
       env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.REPOACCESS }}
           DIR_GHP: "gh-pages"       
     - name: Docker Run
   # You may pin to the exact commit or the version.
