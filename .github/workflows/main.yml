@@ -36,3 +36,5 @@ jobs:
     - name: Run publish.sh to generate index.html
       #run: git update-index --chmod=-x  bin/compile_docs.sh
       run: bash publish.sh 
+      env:
+          GITHUB_TOKEN: ${{ secrets.repoaccess }}
