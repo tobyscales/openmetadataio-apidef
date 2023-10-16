@@ -1,5 +1,5 @@
-name: learn-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
+name: update-api-docs
+run-name: ${{ github.actor }} updated API docs
 on: [push]
 jobs:
   publish-api-spec:
