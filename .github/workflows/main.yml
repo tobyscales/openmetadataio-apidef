@@ -10,6 +10,7 @@ jobs:
       uses: actions/checkout@v4
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DIR_TMP_GHP: "/tmp/gh-pages"
     - name: Docker Run
   # You may pin to the exact commit or the version.
   # uses: tj-actions/docker-run@1d25a677da8f1243a138dc5db21e307e92986ffe
