@@ -14,21 +14,28 @@ jobs:
       uses: actions/checkout@v4
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   
-    - name: Docker Run
+    - name: redoc-cli test
+      uses: kefasjw/redoc-cli-github-action@v1
+      with:
+        args: bundle omio.yml -o "${DIR_GHP}"/index.html
+    #- name: Docker Run
   # You may pin to the exact commit or the version.
   # uses: tj-actions/docker-run@1d25a677da8f1243a138dc5db21e307e92986ffe
-      uses: tj-actions/docker-run@v2.2.1  
-      env:
-          DIR_GHP: "gh-pages"
-      with:
+     # uses: tj-actions/docker-run@v2.2.1  
+     # env:
+     #     DIR_GHP: "gh-pages"
+     # with:
           # Docker image
-          image: funbox/blueprinter
+          # image: funbox/blueprinter
+          # image: redocly/redoc
           # Container name
-          name: blueprinter
+          #name: blueprinter
+          #name: redoc
           # Command to run
-          args: -i api.apib -o "${DIR_GHP}"/index.html
+          #args: -i api.apib -o "${DIR_GHP}"/index.html
+          
           # Options to pass to docker run
-          options: -v $(pwd):/app 
+          # options: -v $(pwd):/app 
     #- name: Use Node.js
     #  uses: actions/setup-node@v3
     #  with:
