@@ -12,7 +12,7 @@ DIR_WORKSPACE="$(pwd)"
 DIR_TMP_GHP="/tmp/${DIR_GHP}"
 CURRENT_BRANCH=$(git branch --show-current)
 
-npx @redocly/cli build-docs OpenMetadataIO -o "${DIR_GHP}/index.html"
+npx @redocly/cli build-docs omio.yml -o "${DIR_GHP}/index.html"
 
 if [[ -n "${ENV_GITHUB_RUN_ID}" ]]; then
   git config user.name "${GITHUB_ACTOR}"
