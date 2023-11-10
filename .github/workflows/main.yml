@@ -14,12 +14,16 @@ jobs:
       uses: actions/checkout@v4
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   
-    - name: redoc-cli test
-      uses: kefasjw/redoc-cli-github-action@v1
+    - name: run redocly cli
       env:
-          DIR_GHP: "gh-pages"
-      with:
-        args: 'build omio.yml -o ${DIR_GHP}/index.html'
+        DIR_GHP: "gh-pages"
+      run: npx @redocly/cli build omio.yml -o "${DIR_GHP}/index.html"
+    #- name: redoc-cli test
+    #  uses: kefasjw/redoc-cli-github-action@v1
+    #  env:
+    #      DIR_GHP: "gh-pages"
+    #  with:
+    #    args: 'build omio.yml -o ${DIR_GHP}/index.html'
     #- name: Docker Run
   # You may pin to the exact commit or the version.
   # uses: tj-actions/docker-run@1d25a677da8f1243a138dc5db21e307e92986ffe
