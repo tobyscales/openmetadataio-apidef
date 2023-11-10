@@ -28,14 +28,37 @@ tags:
 
 
 paths:
-  /assets:
+  # /assets:
+  #   get: 
+  #     description: |
+  #       Get assets by specifying the OMC identifier in the URL request.
+  #     operationId: getAssetsById
+  #     tags:
+  #     - Asset Management
+  #     parameters:
+  #     - $ref: "#/components/parameters/omc-ids"
+  #     responses:
+  #     "200":
+  #       content:
+  #         application/json:
+  #           schema:
+  #             properties:
+  #               data:
+  #                 items:
+  #                   $ref: "#/components/schemas/Asset"
+  #                 type: array
+  #               meta:
+  #                 $ref: "#/components/schemas/Meta"
+  #               pagination:
+  #                 $ref: "#/components/schemas/Pagination"
+  #             type: object
+  /asset/create:
     post:
-      operationId: CreateAsset
+      description: |
+        Create new Assets in OMIO and receive an OMC identifier.
+      operationId: createAsset
       tags:
       - Asset Management
-      summary: Create new Asset
-      description: |-
-              operationId: Create new Asset
       requestBody: 
         description: This action creates a new Asset within OpenMetadataIO, which can later be retrieved using its Identifier.
         required: true
@@ -56,43 +79,94 @@ paths:
                     type: boolean
                   identifier:
                     $ref: '#/components/schemas/identifier'
-
+              example:
+                $ref: '#/components/examples/assetCreatedResponse'
         400:
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  created:
-                    type: boolean
-                  error:
-                    type: string
-                example:
-                  created: false
-                  error: "100- Already exists. // 200- Missing required paramters. // 300- Insufficient permissions."
-
-  /assets/{refid}:
-    summary: ReferenceID is a unique string value assigned to your Asset.
-    
+          $ref: "#/components/responses/BadRequest"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+  "/asset/{omc-id}":
     get:
-      operationId: GetAssetByRef
-      summary: Get an Asset by referenceId
+      description: |
+        Returns an Asset given that Asset's unique ID 
+      operationId: getAssetById
+      tags:
+        - Asset Management
       parameters: 
-        - in: path
-          name: refid
-          schema: 
-            $ref: '#/components/schemas/identifier'
-          required: true
-          description: ReferenceID of the Asset you wish to retrieve.
+        - $ref: '#/components/parameters/omc-id'
       responses:
-        '200':
-          description: OK
+        200:
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/Asset'
-
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Asset"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                type: object
+          description: ""
+    delete:
+      description: Deletes an Asset reference from OpenMetadataIO.
+      operationId: deleteAssetById
+      tags: 
+      -  Asset Management
+      parameters:
+        - $ref: "#/components/parameters/omc-id"
+      responses:
+        "204":
+          description: No Content 
+    patch:
+      description: Updates the details of an already-created Asset with the provided OMC ID.
+      operationId: updateAssetById
+      tags:
+        - Asset Management
+      parameters:
+        - $ref: "#/components/parameters/omc-id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Asset"
+        required: true
+      responses: 
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Asset"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                type: object
+          description: ""
+  "/asset/{omc-id}/related":
+    get:
+      description: |
+        Returns the list of Assets associated with this Asset's unique ID 
+      operationId: getRelatedAssetsById
+      tags:
+        - Asset Management
+      parameters: 
+        - $ref: '#/components/parameters/omc-id'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: "#/components/schemas/identifier"
+                  type: array
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                type: object
+          description: ""
+          
   /tasks:
     post:
       operationId: GetTasks
@@ -120,7 +194,7 @@ paths:
                   created:
                     type: boolean
                   identifier:
-                    $schema: "omc-json-v2.0.json#/$defs/Utility/properties/identifier"
+                    $ref: '#/components/schemas/identifier'
 
 
   /metadata/create:
@@ -152,16 +226,88 @@ paths:
                   version: "2.0"
                   updated: "true"
 
-components: 
+components:
+  examples: 
+    assetCreatedResponse:
+        created: true
+        identifier: ["some-mam", "abcd1234"]
+  parameters: 
+    omc-id:
+      description: A URL-encoded string representing the union of identifierScope and identifierValue.
+      in: path
+      name: omc-id
+      required: true
+      schema:
+        type: string
+    omc-ids:
+      description: Filters results by specified OMC IDs, separated by commas (URL Encoded please).
+      in: query
+      name: omc-ids
+      required: true
+      schema:
+        type: string
+  responses: 
+    BadRequest:
+      description: Your request was formatted incorrectly or missing required parameters.
+    Forbidden:
+      description: You weren't authorized to make your request; check your permissions and try again.
+    NotFound:
+      description: The particular item you are requesting was not found. This occurs, for example, if you request an Asset by an id that does not exist. 
   schemas: 
-    OMCAsset:
-      $ref: 'omc-json-v2.0.json#/$defs/Asset/properties/Asset'
-    Participant:
-      $ref: 'omc-json-v2.0.json#/$defs/Participant'
-    Task:
-      $ref: 'omc-json-v2.0.json#/$defs/Task/properties/taskFC'
-    identifier: 
-      $ref: 'omc-json-v2.0.json#/$defs/Utility/properties/identifier'
     Asset:
-      anyOf: 
-        -  $ref: "#/components/schemas/OMCAsset"
+      $ref: 'omc-asset.json#/$defs/Asset/properties/Asset'
+    Participant:
+      $ref: 'omc-participant.json#/$defs/Participant'
+    Task:
+      $ref: 'omc-json-v2.0.json#/$defs/Task/properties/Task'
+    identifier: 
+      $ref: 'omc-utility.json#/$defs/Utility/properties/identifier'
+    Meta:
+      description: |
+        The Meta Object contains basic information regarding the request, whether it was successful, and the response given by the API.  Check `responses` to see a description of types of response codes the API might give you under different cirumstances.
+      properties:
+        msg:
+          description: HTTP Response Message
+          example: OK
+          type: string
+        response_id:
+          description: A unique ID paired with this response from the API.
+          example: 57eea03c72381f86e05c35d2
+          type: string
+        status:
+          description: HTTP Response Code
+          example: 200
+          format: int32
+          type: integer
+      type: object
+    Pagination:
+      description: |
+        The Pagination Object contains information relating to the number of total results available as well as the number of results fetched and their relative positions.
+      properties:
+        count:
+          description: Total number of items returned.
+          example: 25
+          format: int32
+          type: integer
+        offset:
+          description: Position in pagination.
+          example: 75
+          format: int32
+          type: integer
+        total_count:
+          description: Total number of items available.
+          example: 250
+          format: int32
+          type: integer
+      type: object
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string    

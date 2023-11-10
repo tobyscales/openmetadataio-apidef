@@ -15,8 +15,8 @@ CURRENT_BRANCH=$(git branch --show-current)
 npx @redocly/cli build-docs OpenMetadataIO -o "${DIR_GHP}/index.html"
 
 if [[ -n "${ENV_GITHUB_RUN_ID}" ]]; then
-  git config user.name github-actions
-  git config user.email github-actions@github.com
+  git config user.name "${GITHUB_ACTOR}"
+  git config user.email "${GITHUB_ACTOR}@github.com"
 fi
 
 ### Ensure the 'gh-pages' orphan branch exists
@@ -27,17 +27,6 @@ if [[ ${PIPESTATUS[0]} -eq 0 ]]; then
   git checkout "${CURRENT_BRANCH}"
   echo "Orphan branch 'gh-pages' created."
 fi
-
-#if [ -n "${ARG_SCRIPT_BUILD}" ]; then
-#  ! "${ARG_SCRIPT_BUILD}"
-#  if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
-#    echo "The build script '${ARG_SCRIPT_BUILD}' exited with a non 0!"
-#    exit 2
-#  fi
-
-  ### After build script ensure that we are in the workspace directory
- # cd "${DIR_WORKSPACE}"
-#fi
 
 if [ ! -d "${ARG_DIR_SOURCE}" ] || [ ! -r "${ARG_DIR_SOURCE}" ]; then
   echo "Source directory must exist and be readable, path must be relative to the root of the project."
@@ -66,8 +55,3 @@ else
   echo "☑ No changes detected"
 fi
 
-cd "${DIR_WORKSPACE}"
-
-### Clean up worktree and /tmp dir
-#! rm -rf "${DIR_TMP_GHP}" >> /dev/null
-#! git worktree remove "${DIR_TMP_GHP}" >> /dev/null
