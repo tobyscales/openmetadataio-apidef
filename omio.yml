@@ -28,30 +28,7 @@ tags:
 
 
 paths:
-  # /assets:
-  #   get: 
-  #     description: |
-  #       Get assets by specifying the OMC identifier in the URL request.
-  #     operationId: getAssetsById
-  #     tags:
-  #     - Asset Management
-  #     parameters:
-  #     - $ref: "#/components/parameters/omc-ids"
-  #     responses:
-  #     "200":
-  #       content:
-  #         application/json:
-  #           schema:
-  #             properties:
-  #               data:
-  #                 items:
-  #                   $ref: "#/components/schemas/Asset"
-  #                 type: array
-  #               meta:
-  #                 $ref: "#/components/schemas/Meta"
-  #               pagination:
-  #                 $ref: "#/components/schemas/Pagination"
-  #             type: object
+
   /asset/create:
     post:
       description: |
@@ -166,13 +143,132 @@ paths:
                     $ref: "#/components/schemas/Meta"
                 type: object
           description: ""
-          
+
+
+  /participant/create:
+    post:
+      description: |
+        Create new participants in OMIO and receive an OMC identifier.
+      operationId: createparticipant
+      tags:
+      - Participant Management
+      requestBody: 
+        description: This action creates a new participant within OpenMetadataIO, which can later be retrieved using its Identifier.
+        required: true
+        content:
+          application/json:
+              schema:
+                  $ref: '#/components/schemas/Participant'
+
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  created:
+                    type: boolean
+                  identifier:
+                    $ref: '#/components/schemas/identifier'
+              example:
+                $ref: '#/components/examples/participantCreatedResponse'
+        400:
+          $ref: "#/components/responses/BadRequest"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+  "/participant/{omc-id}":
+    get:
+      description: |
+        Returns a Participant given that Participant's unique ID 
+      operationId: getParticipantById
+      tags:
+        - Participant Management
+      parameters: 
+        - $ref: '#/components/parameters/omc-id'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Participant"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                type: object
+          description: ""
+    delete:
+      description: Deletes an Participant reference from OpenMetadataIO.
+      operationId: deleteParticipantById
+      tags: 
+      -  Participant Management
+      parameters:
+        - $ref: "#/components/parameters/omc-id"
+      responses:
+        "204":
+          description: No Content 
+    patch:
+      description: Updates the details of an already-created participant with the provided OMC ID.
+      operationId: updateParticipantById
+      tags:
+        - Participant Management
+      parameters:
+        - $ref: "#/components/parameters/omc-id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Participant"
+        required: true
+      responses: 
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Participant"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                type: object
+          description: ""
+  "/participant/{omc-id}/related":
+    get:
+      description: |
+        Returns the list of Participants associated with this participant's unique ID 
+      operationId: getRelatedParticipantsById
+      tags:
+        - Participant Management
+      parameters: 
+        - $ref: '#/components/parameters/omc-id'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: "#/components/schemas/identifier"
+                  type: array
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                type: object
+          description: ""
+            
 
 components:
   examples: 
     assetCreatedResponse:
         created: true
         identifier: ["some-mam", "abcd1234"]
+    participantCreatedResponse:
+          created: true
+          identifier: ["prod-pro", "abcd1234"]
   parameters: 
     omc-id:
       description: A URL-encoded string representing the union of identifierScope and identifierValue.
