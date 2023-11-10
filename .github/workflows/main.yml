@@ -15,7 +15,9 @@ jobs:
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   
     - name: redoc-cli test
-      uses: kefasjw/redoc-cli-github-action@v1
+      uses: seeebiii/redoc-cli-github-action@v10
+      env:
+          DIR_GHP: "gh-pages"
       with:
         args: build omio.yml -o "${DIR_GHP}"/index.html
     #- name: Docker Run
