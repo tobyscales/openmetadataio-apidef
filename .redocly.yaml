@@ -1,8 +1,7 @@
-apiDefinitions:
-  main: omio.yml
-lint:
-  extends:
-    - recommended
+apis:
+  main@v0:
+    root: omio.yml
+styleguide:
   rules:
     tag-description: off
     operation-summary: error
