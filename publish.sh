@@ -9,15 +9,10 @@ ARG_SCRIPT_BUILD=bin/compile_docs.sh
 set -u
 
 DIR_WORKSPACE="$(pwd)"
-DIR_TMP_GHP="/tmp/gh-pages"
+DIR_TMP_GHP="/tmp/${DIR_GHP}"
 CURRENT_BRANCH=$(git branch --show-current)
 
-#if [ -n "${ARG_SCRIPT_BUILD}" ] && [ ! -x "${ARG_SCRIPT_BUILD}" ]; then
-#  echo "The build script '${ARG_SCRIPT_BUILD}' either does not exists or is not executable!"
-#  exit 1
-#fi
-
-npx @redocly/cli build-docs omio.yml -o "${DIR_GHP}/index.html"
+npx @redocly/cli build-docs OpenMetadataIO -o "${DIR_GHP}/index.html"
 
 if [[ -n "${ENV_GITHUB_RUN_ID}" ]]; then
   git config user.name github-actions
@@ -51,7 +46,7 @@ fi
 
 ### Clean up worktree and /tmp dir
 ! rm -rf "${DIR_TMP_GHP}" >> /dev/null
-! git worktree remove /tmp/gh-pages >> /dev/null
+! git worktree remove "${DIR_TMP_GHP}" >> /dev/null
 
 ### Copy gh-pages source to worktree
 git worktree add "${DIR_TMP_GHP}" gh-pages
@@ -74,5 +69,5 @@ fi
 cd "${DIR_WORKSPACE}"
 
 ### Clean up worktree and /tmp dir
-! rm -rf "${DIR_TMP_GHP}" >> /dev/null
-! git worktree remove "${DIR_TMP_GHP}" >> /dev/null
+#! rm -rf "${DIR_TMP_GHP}" >> /dev/null
+#! git worktree remove "${DIR_TMP_GHP}" >> /dev/null
