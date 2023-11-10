@@ -17,7 +17,7 @@ jobs:
     - name: redoc-cli test
       uses: kefasjw/redoc-cli-github-action@v1
       with:
-        args: bundle omio.yml -o "${DIR_GHP}"/index.html
+        args: build omio.yml -o "${DIR_GHP}"/index.html
     #- name: Docker Run
   # You may pin to the exact commit or the version.
   # uses: tj-actions/docker-run@1d25a677da8f1243a138dc5db21e307e92986ffe
