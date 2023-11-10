@@ -42,7 +42,9 @@ paths:
         content:
           application/json:
               schema:
-                  $ref: '#/components/schemas/Asset'
+                $ref: '#/components/schemas/Asset'
+              example: 
+                $ref: '#/components/examples/createAssetExample'
 
       responses:
         201:
@@ -149,11 +151,11 @@ paths:
     post:
       description: |
         Create new participants in OMIO and receive an OMC identifier.
-      operationId: createparticipant
+      operationId: createParticipant
       tags:
       - Participant Management
       requestBody: 
-        description: This action creates a new participant within OpenMetadataIO, which can later be retrieved using its Identifier.
+        description: This action creates a new Participant within OpenMetadataIO, which can later be retrieved using its Identifier.
         required: true
         content:
           application/json:
@@ -262,7 +264,18 @@ paths:
             
 
 components:
-  examples: 
+  examples:
+    createAssetExample:
+      properties:
+        version:
+            versionNumber: 1.2.3
+            name: Updated Action Sequence
+            description: This is where Og the bear attacks our hero.
+        annotation:
+          title: Make this funnier!
+          text: Why can't the bear be wearing hilarious bloomers?
+        RevisionOf:
+          identifier: [some-old-mam, abcd1234]
     assetCreatedResponse:
         created: true
         identifier: ["some-mam", "abcd1234"]
