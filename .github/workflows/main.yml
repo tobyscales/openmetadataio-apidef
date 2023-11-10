@@ -15,7 +15,7 @@ jobs:
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   
     - name: redoc-cli test
-      uses: seeebiii/redoc-cli-github-action@v10
+      uses: kefasjw/redoc-cli-github-action@v1
       env:
           DIR_GHP: "gh-pages"
       with:
