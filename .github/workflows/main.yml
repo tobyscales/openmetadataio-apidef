@@ -17,7 +17,7 @@ jobs:
     - name: run redocly cli
       env:
         DIR_GHP: "gh-pages"
-      run: npx @redocly/cli build omio.yml -o "${DIR_GHP}/index.html"
+      run: npx @redocly/cli build-docs omio.yml -o "${DIR_GHP}/index.html"
     #- name: redoc-cli test
     #  uses: kefasjw/redoc-cli-github-action@v1
     #  env:
