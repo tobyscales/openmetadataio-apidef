@@ -4,7 +4,7 @@ set -exo pipefail
 
 ### Import Environment Variables & arguments
 ENV_GITHUB_RUN_ID="${GITHUB_RUN_ID}"
-ARG_DIR_SOURCE=gh-pages
+ARG_DIR_SOURCE="${DIR_GHP}"
 ARG_SCRIPT_BUILD=bin/compile_docs.sh
 set -u
 
@@ -16,6 +16,8 @@ CURRENT_BRANCH=$(git branch --show-current)
 #  echo "The build script '${ARG_SCRIPT_BUILD}' either does not exists or is not executable!"
 #  exit 1
 #fi
+
+npx @redocly/cli build-docs omio.yml -o "${DIR_GHP}/index.html"
 
 if [[ -n "${ENV_GITHUB_RUN_ID}" ]]; then
   git config user.name github-actions
@@ -73,4 +75,4 @@ cd "${DIR_WORKSPACE}"
 
 ### Clean up worktree and /tmp dir
 ! rm -rf "${DIR_TMP_GHP}" >> /dev/null
-! git worktree remove /tmp/gh-pages >> /dev/null
+! git worktree remove "${DIR_TMP_GHP}" >> /dev/null
