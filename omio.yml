@@ -18,11 +18,11 @@ servers:
 security: []
 tags:
 - name: Asset Management
-  description: CRUD operations for Assets, as defined by the OMC schema. Can be extended with custom properties.
+  description: CRUDL operations for Assets, as defined by the OMC schema. Can be extended with custom properties.
 - name: Participant Management
-  description: CRUD operations for Participants, as defined by the OMC schema. Can be extended with custom properties.
+  description: CRUDL operations for Participants, as defined by the OMC schema. Can be extended with custom properties.
 - name: Role Management
-  description: CRUD operations for Roles, which can be assigned to Participants and used to grant or deny access to metadata within OMIO.
+  description: CRUDL operations for Roles, which can be assigned to Participants and used to grant or deny access to metadata within OMIO.
 - name: Schema Extensions
   description: Extend the core [OMC schema](https://json-schema.org/specification) by specifying additional required fields for Assets, Participants and Roles.
 
@@ -167,64 +167,6 @@ paths:
                 type: object
           description: ""
           
-  /tasks:
-    post:
-      operationId: GetTasks
-      tags:
-      - Task Management
-      summary: Create new Task
-      description: |-
-              operationId: Create new Task
-      requestBody: 
-        description: This action creates a new Task within OpenMetadataIO, which can later be retrieved using its Identifier.
-        required: true
-        content:
-          application/json:
-              schema:
-                  $ref: '#/components/schemas/Task'
-
-      responses:
-        201:
-          description: Created
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  created:
-                    type: boolean
-                  identifier:
-                    $ref: '#/components/schemas/identifier'
-
-
-  /metadata/create:
-    post:
-      tags:
-      - Metadata Definitions
-      summary: Create new metadata schema from URL
-      description: |-
-        This action creates a new metadata schema. It takes a public URL and creates a schema based on the JSON objects defined there.
-
-        + schema_url (string) - A publicly-accessible URL for a [JSON-schema](https://json-schema.org/specification) definition file.
-      operationId: "CreateMetadataSchema"
-      responses:
-        201:
-          description: Created
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  version:
-                    type: string
-                  updated:
-                    type: string
-                example:
-                  name: omc-schema
-                  version: "2.0"
-                  updated: "true"
 
 components:
   examples: 
@@ -255,13 +197,11 @@ components:
       description: The particular item you are requesting was not found. This occurs, for example, if you request an Asset by an id that does not exist. 
   schemas: 
     Asset:
-      $ref: 'omc-asset.json#/$defs/Asset/properties/Asset'
+      $ref: 'schemas/omc-asset.json#/$defs/Asset/properties/Asset'
     Participant:
-      $ref: 'omc-participant.json#/$defs/Participant'
-    Task:
-      $ref: 'omc-json-v2.0.json#/$defs/Task/properties/Task'
+      $ref: 'schemas/omc-participant.json#/$defs/Participant'
     identifier: 
-      $ref: 'omc-utility.json#/$defs/Utility/properties/identifier'
+      $ref: 'schemas/omc-utility.json#/$defs/Utility/properties/identifier'
     Meta:
       description: |
         The Meta Object contains basic information regarding the request, whether it was successful, and the response given by the API.  Check `responses` to see a description of types of response codes the API might give you under different cirumstances.
