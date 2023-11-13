@@ -28,7 +28,6 @@ tags:
 
 
 paths:
-
   /asset/create:
     post:
       description: |
@@ -69,7 +68,7 @@ paths:
   "/asset/{omc-id}":
     get:
       description: |
-        Returns an Asset given that Asset's unique ID 
+        Returns an Asset object, given that Asset's unique ID 
       operationId: getAssetById
       tags:
         - Asset Management
@@ -87,6 +86,12 @@ paths:
                     $ref: "#/components/schemas/Meta"
                 type: object
           description: ""
+        400:
+          $ref: "#/components/responses/BadRequest"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
     delete:
       description: Deletes an Asset reference from OpenMetadataIO.
       operationId: deleteAssetById
@@ -95,8 +100,14 @@ paths:
       parameters:
         - $ref: "#/components/parameters/omc-id"
       responses:
-        "204":
+        204:
           description: No Content 
+        400:
+          $ref: "#/components/responses/BadRequest"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
     patch:
       description: Updates the details of an already-created Asset with the provided OMC ID.
       operationId: updateAssetById
@@ -121,7 +132,13 @@ paths:
                   meta:
                     $ref: "#/components/schemas/Meta"
                 type: object
-          description: ""
+          description: ""          
+        400:
+          $ref: "#/components/responses/BadRequest"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
   "/asset/{omc-id}/related":
     get:
       description: |
@@ -144,8 +161,16 @@ paths:
                   meta:
                     $ref: "#/components/schemas/Meta"
                 type: object
+                pagination:
+                  $ref: "#/components/schemas/Pagination"
+                type: object
           description: ""
-
+        400:
+          $ref: "#/components/responses/BadRequest"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
 
   /participant/create:
     post:
@@ -161,7 +186,6 @@ paths:
           application/json:
               schema:
                   $ref: '#/components/schemas/Participant'
-
       responses:
         201:
           description: Created
@@ -185,7 +209,7 @@ paths:
   "/participant/{omc-id}":
     get:
       description: |
-        Returns a Participant given that Participant's unique ID 
+        Returns a Participant object, given that Participant's unique ID 
       operationId: getParticipantById
       tags:
         - Participant Management
@@ -203,6 +227,12 @@ paths:
                     $ref: "#/components/schemas/Meta"
                 type: object
           description: ""
+        400:
+          $ref: "#/components/responses/BadRequest"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
     delete:
       description: Deletes an Participant reference from OpenMetadataIO.
       operationId: deleteParticipantById
@@ -213,6 +243,12 @@ paths:
       responses:
         "204":
           description: No Content 
+        400:
+          $ref: "#/components/responses/BadRequest"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
     patch:
       description: Updates the details of an already-created participant with the provided OMC ID.
       operationId: updateParticipantById
@@ -238,6 +274,12 @@ paths:
                     $ref: "#/components/schemas/Meta"
                 type: object
           description: ""
+        400:
+          $ref: "#/components/responses/BadRequest"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
   "/participant/{omc-id}/related":
     get:
       description: |
@@ -260,7 +302,16 @@ paths:
                   meta:
                     $ref: "#/components/schemas/Meta"
                 type: object
+                pagination:
+                  $ref: "#/components/schemas/Pagination"
+                type: object
           description: ""
+        400:
+          $ref: "#/components/responses/BadRequest"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
             
 
 components:
@@ -303,7 +354,7 @@ components:
     Forbidden:
       description: You weren't authorized to make your request; check your permissions and try again.
     NotFound:
-      description: The particular item you are requesting was not found. This occurs, for example, if you request an Asset by an id that does not exist. 
+      description: The particular item you are requesting was not found. This occurs, for example, if you request an Asset by an ID that does not exist. 
   schemas: 
     Asset:
       $ref: 'schemas/omc-asset.json#/$defs/Asset/properties/Asset'
