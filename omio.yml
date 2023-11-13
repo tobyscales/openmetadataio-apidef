@@ -157,7 +157,7 @@ paths:
                   data:
                     items:
                       $ref: "#/components/schemas/identifier"
-                  type: array
+                    type: array
                   meta:
                     $ref: "#/components/schemas/Meta"
                   pagination:
@@ -296,7 +296,7 @@ paths:
                   data:
                     items:
                       $ref: "#/components/schemas/identifier"
-                  type: array
+                    type: array
                   meta:
                     $ref: "#/components/schemas/Meta"
                   pagination:
