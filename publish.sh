@@ -44,6 +44,7 @@ cp -r "${ARG_DIR_SOURCE:?}"/* "${DIR_TMP_GHP}/"
 
 ### Publish gh-pages
 cd "${DIR_TMP_GHP}"
+echo omio.scales.cloud >> CNAME
 git add --all
 
 ### Allow the commit to fail, as not all commits alter the GitHub Pages
