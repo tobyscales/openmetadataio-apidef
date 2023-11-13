@@ -160,10 +160,10 @@ paths:
                   type: array
                   meta:
                     $ref: "#/components/schemas/Meta"
-                type: object
-                pagination:
-                  $ref: "#/components/schemas/Pagination"
-                type: object
+                  type: object
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+                  type: object
           description: ""
         400:
           $ref: "#/components/responses/BadRequest"
@@ -301,10 +301,10 @@ paths:
                   type: array
                   meta:
                     $ref: "#/components/schemas/Meta"
-                type: object
-                pagination:
-                  $ref: "#/components/schemas/Pagination"
-                type: object
+                  type: object
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+                  type: object
           description: ""
         400:
           $ref: "#/components/responses/BadRequest"
